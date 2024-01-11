@@ -1,0 +1,26 @@
+<div class="side-div">
+  <div class="questions-container">
+    <div
+      *ngFor="let question of questions; let i = index"
+      (click)="onClickQuestionCard(question)"
+      class="row"
+    >
+      <div class="col px-3">
+        <app-question-card
+          [index]="i"
+          [question]="question"
+          (deleteQuestion)="onDeleteQuestion($event)"
+        ></app-question-card>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button
+      (click)="onAddQuestion()"
+      class="qz-btn text-white m-3 qz-bg-blue"
+      style="width: 84%; height: 2em"
+    >
+      Add Question
+    </button>
+  </div>
+</div>

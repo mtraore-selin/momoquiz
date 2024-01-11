@@ -1,0 +1,68 @@
+<div class="row m-5">
+  <!-- Datatable for list of quizzes -->
+  <div class="col">
+    <div class="qz-card table-box qz-rounded-corner-light">
+      <table>
+        <caption></caption>
+        <thead class="qz-bg-blue text-white">
+          <tr>
+            <th>Name</th>
+            <th>Correct Answers</th>
+            <th>Wrong Answers</th>
+            <th>Final Score</th>
+            <th>Rank</th>
+            <!-- <th>Correct/Wrong answer statistics</th> -->
+            <th>Medal/Answer statistics</th>
+          </tr>
+        </thead>
+
+        <tr *ngFor="let item of info; let i = index">
+          <td>{{ item.data.player_name }}</td>
+          <td>{{ item.data.correct_answers }}</td>
+          <td>{{ item.data.wrong_answers }}</td>
+          <td>{{ item.data.score }}</td>
+          <td>{{ i + 1 }}</td>
+          <td class="d-flex justify-content-center">
+            <div style="display: block; height: 75px; width: 75px">
+              <!-- Show the medals for first three ranks -->
+              <ng-container *ngIf="i === 0">
+                <fa-icon [icon]="goldMedalIcon" class="gold-medal"></fa-icon>
+              </ng-container>
+              <ng-container *ngIf="i === 1">
+                <fa-icon
+                  [icon]="bronzeMedalIcon"
+                  class="bronze-medal"
+                ></fa-icon>
+              </ng-container>
+              <ng-container *ngIf="i === 2">
+                <fa-icon
+                  [icon]="silverMedalIcon"
+                  class="silver-medal"
+                ></fa-icon>
+              </ng-container>
+
+              <!-- Show the ranking for ranks other than first three -->
+              <ng-container *ngIf="i > 2">
+                {{ i + 1 }}
+              </ng-container>
+            </div>
+
+            <div style="display: block; height: 75px; width: 75px">
+              <canvas
+                baseChart
+                width="1"
+                height="1"
+                [data]="[
+                  doughnutChartData[i * 2],
+                  doughnutChartData[i * 2 + 1]
+                ]"
+                [chartType]="doughnutChartType"
+                [colors]="doughnutColors"
+              ></canvas>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
